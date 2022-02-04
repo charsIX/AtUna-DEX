@@ -10,7 +10,7 @@ function showCoins($array){
 }
 //Coinranking api
 $curl = curl_init();
-$apiKey = readfile('API.txt');
+$out = 0.00;
 curl_setopt_array($curl, [
 	CURLOPT_URL => "https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers=1&orderBy=marketCap&orderDirection=desc&limit=100&offset=0",
 	CURLOPT_RETURNTRANSFER => true,
@@ -22,7 +22,7 @@ curl_setopt_array($curl, [
 	CURLOPT_CUSTOMREQUEST => "GET",
 	CURLOPT_HTTPHEADER => [
 		"x-rapidapi-host: coinranking1.p.rapidapi.com",
-		"x-rapidapi-key: $apiKey"
+		"x-rapidapi-key: 18392f88a8msh598eb191af6e860p1253b2jsnc84960cbf6cf" //steal it, no matter what u do with my key
 	],
 ]);
 
@@ -39,7 +39,7 @@ if ($err) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$k;
-	$out;
+
 	print_r($_POST);
 	//PI calculus k = x*y where k is constant
 	$token1Reserve = $_POST['tvl']/2/$_POST['token1'];
