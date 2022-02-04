@@ -1,0 +1,31 @@
+.main{
+  width: 100%;
+  text-align: center;
+}
+
+.main .nav-bar{
+  display: inline-flex;
+}
+
+.main .nav-bar a{
+  margin-left: 10px;
+  margin-right: 10px;
+  text-decoration: none;
+}
+
+.main .nav-bar .title{
+  margin: 0;
+}
+
+.cg-widget{
+  position: absolute;
+  right: 0px;
+  width: 250px;
+}
+
+.revert-button{
+  background-image: url("https://cdn-icons-png.flaticon.com/512/318/318147.png");
+}
+#swap-button{
+  background-color: red;
+}
