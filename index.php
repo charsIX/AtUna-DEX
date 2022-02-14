@@ -39,23 +39,22 @@ if ($err) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$k;
-
-	print_r($_POST);
+	//print_r($_POST);
 	//PI calculus k = x*y where k is constant
 	$token1Reserve = $_POST['tvl']/2/$_POST['token1'];
 	$token2Reserve = $_POST['tvl']/2/$_POST['token2'];
-	echo "$token1Reserve <br>";
-	echo "$token2Reserve <br>";
+	// echo "$token1Reserve <br>";
+	// echo "$token2Reserve <br>";
 	$k = $token1Reserve * $token2Reserve;
-	echo "$k <br>";
-	$token1Reserve += $_POST['in'];
-	echo "$token1Reserve";
-	echo "<br>";
-	$out = $token2Reserve;
+	// echo "$k <br>";
+	$newToken1Reserve = $token1Reserve + $_POST['in'];
+	// echo "$token1Reserve";
+	// echo "<br>";
+	$newToken2Reserve = $k / $newToken1Reserve;
 	$token2Reserve = $k/$token1Reserve;
 
 
-	$out -= $token2Reserve;
+	$out = $token2Reserve - $newToken2Reserve;
 
 	echo "$out";
 }
@@ -82,10 +81,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form class="" action="index.php" method="post">
           <input type="number" name="in" value="" placeholder="Amount to swap" required oninvalid="this.setCustomValidity('Better if you provide an amount to swap')" onchange="this.setCustomValidity('')">
           <select name="token1"><?php showCoins($array);?></select>
-					<output name="result"> <?php echo "$out"; ?> </output>
+					<output id"received" name="result"> <?php echo "$out"; ?> </output>
 					<select name="token2"><?php	showCoins($array);?></select>
 					<input type="number" name="tvl" value="" placeholder="TVL in $" required oninvalid="this.setCustomValidity('PI huge if no TVL, mate')" onchange="this.setCustomValidity('')">
-          <input type="submit" name="" value="Swap">
+          <input id="swap-button" type="submit" name="" value="Swap">
         </form>
       </div>
     </div>
