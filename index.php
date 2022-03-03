@@ -39,6 +39,9 @@ if ($err) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$k;
+	$expected;
+	$priceImpact;
+	$received;
 	//print_r($_POST);
 	//PI calculus k = x*y where k is constant
 	$token1Reserve = $_POST['tvl']/2/$_POST['token1'];
@@ -53,9 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$newToken2Reserve = $k / $newToken1Reserve;
 	$token2Reserve = $k/$token1Reserve;
 
-	$out = $token2Reserve - $newToken2Reserve;
+	$expected = $_POST['in']*$_POST['token1']/$_POST['token2'];
+	$received = $token2Reserve - $newToken2Reserve;
+	$priceImpact = 100-($received/$expected)*100;
 
-	// echo "$out";
+	 
 }
 ?>
 <html lang="en" dir="ltr">
@@ -85,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						onchange="this.setCustomValidity('')">
 	          <select class="fields" name="token1"><?php showCoins($array);?></select>
 						<br>
-						<input class="fields" type="number" name="" disabled value="<?php echo "$out";?>">
+						<input class="fields" type="number" name="" disabled value="<?php echo "$received";?>">
 						<select class="fields" name="token2"><?php	showCoins($array);?></select>
 						<br>
 						<input class="fields" type="number" name="tvl" value=""
@@ -93,6 +98,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						oninvalid="this.setCustomValidity('PI huge if no TVL, mate')"
 						onchange="this.setCustomValidity('')">
 	          <input class="fields" type="submit" name="" value="Swap">
+						<br>
+						<input class="fields" type="text" name="" disabled value="<?php if (isset($priceImpact)){echo "$priceImpact"."%";}
+																																						else {
+																																							echo "waiting...";
+																																						}?>">
 	        </form>
 	      </div>
 	    </div>
